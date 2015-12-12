@@ -5,7 +5,8 @@
 
 // Enemies our player must avoid
 var Enemy = function() {
-    // Variables applied to each of our instances go here,
+   var enemy = Object.create(Enemy.prototype);
+   // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
@@ -26,19 +27,42 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+    // Now write your own player class
+    // This class requires an update(), render() and
+    // a handleInput() method.
 var Player = function() {
+    var player = Object.create(Player.prototype);
+    this.loc = (300,300);
+    // 2 checkcollisions function
 
-
-this.sprite = 'images/char-cat-girl.png';
+    this.sprite = 'images/char-cat-girl.png';
+    return player;
 };
 
+Player.prototype.update = function(dt) {
+  //is player on dangerous row
+  //is mose of bug near top left corner of player
+
+    // You should multiply any movement by the dt parameter
+    // which will ensure the game runs at the same speed for
+    // all computers.
+};
+
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
 // Now instantiate your objects.
+var enemy1 = new Enemy;
+var enemy2 = new Enemy;
+var enemy3 = new Enemy;
+
 // Place all enemy objects in an array called allEnemies
+var allEnemies = [enemy1, enemy2, enemy3];
+
+
 // Place the player object in a variable called player
+var player = new Player;
 
 
 
@@ -53,4 +77,6 @@ document.addEventListener('keyup', function(e) {
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
+
+  // 1 listen to keyboard strokes and implement movements
 });
