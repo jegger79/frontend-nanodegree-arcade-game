@@ -60,8 +60,19 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.handleInput = funtion() {
-
+Player.prototype.handleInput = function(direction) {
+    if(direction === 'up') {
+        this.y -= 100;
+    }
+    if(direction === 'down') {
+        this.y += 100;
+    }
+    if(direction === 'left') {
+        this.x -= 100;
+    }
+    if(direction === 'right') {
+        this.x += 100;
+    }
 };
 
 
