@@ -1,3 +1,8 @@
+//Identify the various classes you will need to write.
+//Identify and code the properties each class must have to accomplish its tasks.
+//Write the functions that provide functionality to each of your class instances.
+
+
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
@@ -24,6 +29,11 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+var Player = function() {
+
+
+this.sprite = 'images/char-cat-girl.png';
+};
 
 
 // Now instantiate your objects.
