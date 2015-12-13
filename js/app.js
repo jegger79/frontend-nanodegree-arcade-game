@@ -1,7 +1,10 @@
 //Identify the various classes you will need to write.
 //Identify and code the properties each class must have to accomplish its tasks.
 //Write the functions that provide functionality to each of your class instances.
-
+var tileWidth = 100;
+var tileHeight = 83;
+var score = 0;
+var collision = false;
 
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
@@ -9,11 +12,9 @@ var Enemy = function(x, y, speed) {
    // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.sprite = 'images/enemy-bug.png';
-    this.x = x;
+    this.x = Math.floor(Math.random() * (300 - 10) + 10) * -1;
     this.y = y;
-    this.speed = speed;
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+    this.speed = Math.floor(Math.random() * (200)) + 150;
 
 };
 
@@ -23,7 +24,10 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x = this.x++ * dt;
+    this.x += (this.speed * dt);
+    if (this.x > 500) {
+        this.reset();
+    }
 
 };
 
@@ -35,25 +39,30 @@ Enemy.prototype.render = function() {
     // Now write your own player class
     // This class requires an update(), render() and
     // a handleInput() method.
-var Player = function(x, y) {
 
+Enemy.prototype.reset = function() {
+    this.x = Math.floor(Math.random() * (300 - 10) + 10) * -1;
+    this.speed = Math.floor(Math.random() * (200)) + 150;
+};
+
+var Player = function(x, y) {
     this.sprite = 'images/char-cat-girl.png';
     this.x = x;
     this.y = y;
-    // 2 checkcollisions function
-
-
-};
+    this.movementx = tileWidth;
+    this.movementy = tileHeight;
+      };
 
 Player.prototype.update = function(dt) {
-  //is player on dangerous row
-  //is nose of bug near top left corner of player
+    if (this.y <= -35){
+        this.reset();
+        score++;
+    }
 
     // You should multiply any movement by the dt parameter
 
     // which will ensure the game runs at the same speed for
     // all computers.
-    //if up key is pressed,decrease x value of player from this to this...
 };
 
 Player.prototype.render = function() {
@@ -61,34 +70,53 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(direction) {
-    if(direction === 'up') {
-        this.y -= 100;
+    //if direction key is pressed, increase/decrease x/y value of player
+     //keep player on canvas/game board
+    if(direction === 'up' && this.y - this.movementy > -50) {
+        this.y -= tileHeight;
     }
-    if(direction === 'down') {
-        this.y += 100;
+    if(direction === 'down' && this.y + this.movementy < 450) {
+        this.y += tileHeight;
     }
-    if(direction === 'left') {
-        this.x -= 100;
+    if(direction === 'left' && this.x - this.movementx >= 0) {
+        this.x -= tileWidth;
     }
-    if(direction === 'right') {
-        this.x += 100;
+    if(direction === 'right'  && this.x + this.movementx < 500) {
+        this.x += tileWidth;
     }
+    console.log(this.x, this.y);
+
 };
 
+Player.prototype.reset = function() {
+    this.x = 200;
+    this.y = 380;
+};
 
 // Now instantiate your objects.
-var enemy1 = new Enemy(100, 200);
-var enemy2 = new Enemy(200, 300);
-var enemy3 = new Enemy(300, 400);
+var enemy1 = new Enemy(this.x, 60, this.speed);
+var enemy2 = new Enemy(this.x, 145, this.speed);
+var enemy3 = new Enemy(this.x, 230, this.speed);
+//console.log(enemyRandomX);
 
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [enemy1, enemy2, enemy3];
 
 
 // Place the player object in a variable called player
-var player = new Player(300, 400);
+var player = new Player(200, 380);
 
-
+// Check for collisions using bounding box
+checkCollisions = function() {
+     for (i = 0; i < allEnemies.length; i++) {
+            if (allEnemies[i].x < player.x + 101 &&
+                allEnemies[i].x + 101 > player.x &&
+                allEnemies[i].y < player.y + 50 &&
+                allEnemies[i].y + 50 > player.y) {
+                console.log("collision!")
+        }
+}
+    };
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
