@@ -1,6 +1,3 @@
-//Identify the various classes you will need to write.
-//Identify and code the properties each class must have to accomplish its tasks.
-//Write the functions that provide functionality to each of your class instances.
 var tileWidth = 100;
 var tileHeight = 83;
 var score = 0;
@@ -59,6 +56,12 @@ Player.prototype.update = function(dt) {
         score++;
     }
 
+   if (collision === true) {
+        this.reset();
+        collision = false;
+        score--;
+   }
+
     // You should multiply any movement by the dt parameter
 
     // which will ensure the game runs at the same speed for
@@ -109,11 +112,12 @@ var player = new Player(200, 380);
 // Check for collisions using bounding box
 checkCollisions = function() {
      for (i = 0; i < allEnemies.length; i++) {
-            if (allEnemies[i].x < player.x + 101 &&
-                allEnemies[i].x + 101 > player.x &&
+            if (allEnemies[i].x < player.x + 75 &&
+                allEnemies[i].x + 75 > player.x &&
                 allEnemies[i].y < player.y + 50 &&
                 allEnemies[i].y + 50 > player.y) {
-                console.log("collision!")
+                console.log("collision!");
+                collision = true;
         }
 }
     };
