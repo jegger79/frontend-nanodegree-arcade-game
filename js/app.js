@@ -3,6 +3,12 @@ var tileHeight = 83;
 var score = 0;
 var collision = false;
 
+//Display score
+var currentScore = "<p>Your score is " + score + "</p>";
+document.getElementById('score').innerHTML = currentScore;
+
+
+
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
 
@@ -54,12 +60,17 @@ Player.prototype.update = function(dt) {
     if (this.y <= -35){
         this.reset();
         score++;
+        document.getElementById('score').innerHTML = "<p>Your score is " + score + "</p>";
+
     }
 
    if (collision === true) {
         this.reset();
         collision = false;
+        if (score >  0) {
         score--;
+        document.getElementById('score').innerHTML = "<p>Your score is " + score + "</p>";
+    }
    }
 
     // You should multiply any movement by the dt parameter
