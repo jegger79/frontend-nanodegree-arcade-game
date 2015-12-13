@@ -59,6 +59,7 @@ var Player = function(x, y) {
 Player.prototype.update = function(dt) {
     if (this.y <= -35) {
         this.reset();
+        //raise score by 1
         score++;
         document.getElementById('score').innerHTML = "<p>Your score is " + score + "</p>";
 
@@ -67,6 +68,7 @@ Player.prototype.update = function(dt) {
     if (collision === true) {
         this.reset();
         collision = false;
+        //lower score by 1 (unless already at zero)
         if (score > 0) {
             score--;
             document.getElementById('score').innerHTML = "<p>Your score is " + score + "</p>";
