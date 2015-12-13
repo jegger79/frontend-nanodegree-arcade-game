@@ -12,7 +12,7 @@ document.getElementById('score').innerHTML = currentScore;
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
 
-   // Variables applied to each of our instances go here,
+    // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.sprite = 'images/enemy-bug.png';
     this.x = Math.floor(Math.random() * (300 - 10) + 10) * -1;
@@ -39,9 +39,9 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-    // Now write your own player class
-    // This class requires an update(), render() and
-    // a handleInput() method.
+// Now write your own player class
+// This class requires an update(), render() and
+// a handleInput() method.
 
 Enemy.prototype.reset = function() {
     this.x = Math.floor(Math.random() * (300 - 10) + 10) * -1;
@@ -54,24 +54,24 @@ var Player = function(x, y) {
     this.y = y;
     this.movementx = tileWidth;
     this.movementy = tileHeight;
-      };
+};
 
 Player.prototype.update = function(dt) {
-    if (this.y <= -35){
+    if (this.y <= -35) {
         this.reset();
         score++;
         document.getElementById('score').innerHTML = "<p>Your score is " + score + "</p>";
 
     }
 
-   if (collision === true) {
+    if (collision === true) {
         this.reset();
         collision = false;
-        if (score >  0) {
-        score--;
-        document.getElementById('score').innerHTML = "<p>Your score is " + score + "</p>";
+        if (score > 0) {
+            score--;
+            document.getElementById('score').innerHTML = "<p>Your score is " + score + "</p>";
+        }
     }
-   }
 
     // You should multiply any movement by the dt parameter
 
@@ -85,17 +85,17 @@ Player.prototype.render = function() {
 
 Player.prototype.handleInput = function(direction) {
     //if direction key is pressed, increase/decrease x/y value of player
-     //keep player on canvas/game board
-    if(direction === 'up' && this.y - this.movementy > -50) {
+    //keep player on canvas/game board
+    if (direction === 'up' && this.y - this.movementy > -50) {
         this.y -= tileHeight;
     }
-    if(direction === 'down' && this.y + this.movementy < 450) {
+    if (direction === 'down' && this.y + this.movementy < 450) {
         this.y += tileHeight;
     }
-    if(direction === 'left' && this.x - this.movementx >= 0) {
+    if (direction === 'left' && this.x - this.movementx >= 0) {
         this.x -= tileWidth;
     }
-    if(direction === 'right'  && this.x + this.movementx < 500) {
+    if (direction === 'right' && this.x + this.movementx < 500) {
         this.x += tileWidth;
     }
     console.log(this.x, this.y);
@@ -122,16 +122,16 @@ var player = new Player(200, 380);
 
 // Check for collisions using bounding box
 checkCollisions = function() {
-     for (i = 0; i < allEnemies.length; i++) {
-            if (allEnemies[i].x < player.x + 75 &&
-                allEnemies[i].x + 75 > player.x &&
-                allEnemies[i].y < player.y + 50 &&
-                allEnemies[i].y + 50 > player.y) {
-                console.log("collision!");
-                collision = true;
+    for (i = 0; i < allEnemies.length; i++) {
+        if (allEnemies[i].x < player.x + 75 &&
+            allEnemies[i].x + 75 > player.x &&
+            allEnemies[i].y < player.y + 50 &&
+            allEnemies[i].y + 50 > player.y) {
+            console.log("collision!");
+            collision = true;
         }
-}
-    };
+    }
+};
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -145,5 +145,5 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 
-  // 1 listen to keyboard strokes and implement movements
+    // 1 listen to keyboard strokes and implement movements
 });
