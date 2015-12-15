@@ -1,10 +1,10 @@
-var tileWidth = 100;
-var tileHeight = 83;
+var TILE_WIDTH = 100;
+var TILE_HEIGHT = 83;
 var score = 0;
 var collision = false;
 
 //Display score
-var currentScore = "<p>Your score is " + score + "</p>";
+var currentScore = '<p>Your score is ' + score + '</p>';
 document.getElementById('score').innerHTML = currentScore;
 
 
@@ -28,7 +28,8 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += (this.speed * dt);
-    if (this.x > 500) {
+    var canvasWidth = 500;
+    if (this.x > canvasWidth) {
         this.reset();
     }
 
@@ -52,8 +53,8 @@ var Player = function(x, y) {
     this.sprite = 'images/char-cat-girl.png';
     this.x = x;
     this.y = y;
-    this.movementx = tileWidth;
-    this.movementy = tileHeight;
+    this.movementx = TILE_WIDTH;
+    this.movementy = TILE_HEIGHT;
 };
 
 Player.prototype.update = function(dt) {
@@ -89,16 +90,16 @@ Player.prototype.handleInput = function(direction) {
     //if direction key is pressed, increase/decrease x/y value of player
     //keep player on canvas/game board
     if (direction === 'up' && this.y - this.movementy > -50) {
-        this.y -= tileHeight;
+        this.y -= TILE_HEIGHT;
     }
     if (direction === 'down' && this.y + this.movementy < 450) {
-        this.y += tileHeight;
+        this.y += TILE_HEIGHT;
     }
     if (direction === 'left' && this.x - this.movementx >= 0) {
-        this.x -= tileWidth;
+        this.x -= TILE_WIDTH;
     }
     if (direction === 'right' && this.x + this.movementx < 500) {
-        this.x += tileWidth;
+        this.x += TILE_WIDTH;
     }
     console.log(this.x, this.y);
 
@@ -123,7 +124,7 @@ var allEnemies = [enemy1, enemy2, enemy3];
 var player = new Player(200, 380);
 
 // Check for collisions using bounding box
-checkCollisions = function() {
+var checkCollisions = function() {
     for (i = 0; i < allEnemies.length; i++) {
         if (allEnemies[i].x < player.x + 75 &&
             allEnemies[i].x + 75 > player.x &&
